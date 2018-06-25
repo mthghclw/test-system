@@ -1,0 +1,19 @@
+[
+	{
+		"id": 1513560692629,
+		"student":1513660690629,
+		"paper":6511541620031,
+		"grade": 80,
+		"answer": [
+			{"question": 4532541680033, "answer": "A"},
+			{"question": 4532541680033, "answer": ["A","B"]},
+			{"question": 4532541680033, "answer": ["A","B"]},
+			{"question": 4532541680033, "answer": ["A","B"]},
+			{"question": 4532541680033, "answer": ["A","B"]},
+			{"question": 4532541680033, "answer": ["A","B"]},
+			{"question": 4532541680033, "answer": ["A","B"]},
+			{"question": 4532541680033, "answer": ["A","B"]},
+		]
+
+	}
+]

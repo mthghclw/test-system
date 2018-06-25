@@ -1,0 +1,20 @@
+{
+  "name": "test-system",
+  "version": "1.0.0",
+  "description": "考试系统",
+  "main": "server.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ionic-in-action/chapter3.git"
+  },
+  "author": "陈老师",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ionic-in-action/chapter3/issues"
+  },
+  "homepage": "https://github.com/ionic-in-action/chapter3",
+  "dependencies": {
+    "body-parser": "^1.9.3",
+    "express": "^4.10.2"
+  }
+}
