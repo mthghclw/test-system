@@ -4,7 +4,7 @@ var fs = require('fs');
 
 var questionCache = [];
 
-// 获取所有班级
+// 获取所有试题
 router.get('/', function (req, res) {
 
   if(questionCache.length){
@@ -35,7 +35,7 @@ router.get('/', function (req, res) {
   }
 })
 
-// 获取指定ID的班级
+// 获取指定ID的试题
 router.get('/:id', function (req, res) {
 
   if(questionCache.length){
@@ -70,6 +70,102 @@ router.get('/:id', function (req, res) {
     
       data.forEach(function (item, index) {
         if (item.id == req.params.id) {
+          question.push(data[index]);
+        }
+      });
+
+      questionCache = data;
+
+      res.status(200).send(question);
+
+    });
+  }
+
+})
+
+// 获取指定类型的试题
+router.get('/type/:id', function (req, res) {
+
+  if(questionCache.length){
+
+    var question = [];
+    
+    questionCache.forEach(function (item, index) {
+      if (item.type == req.params.id) {
+        question.push(questionCache[index]);
+      }
+    });
+
+    res.status(200).send(question);
+    
+  } else {
+
+    fs.readFile(__dirname + './../data/questions.json', 'utf8', function (err, data) {
+
+      if (err) {
+        res.status(500).end();
+        return console.log(err);
+      }
+
+      try {
+        data = JSON.parse(data);
+      } catch (e) {
+        res.status(500).end();
+        return console.log(e);
+      }
+
+      var question = [];
+    
+      data.forEach(function (item, index) {
+        if (item.type == req.params.id) {
+          question.push(data[index]);
+        }
+      });
+
+      questionCache = data;
+
+      res.status(200).send(question);
+
+    });
+  }
+
+})
+
+// 获取指定范围的试题
+router.get('/range/:id', function (req, res) {
+
+  if(questionCache.length){
+
+    var question = [];
+    
+    questionCache.forEach(function (item, index) {
+      if (item.range == req.params.id) {
+        question.push(questionCache[index]);
+      }
+    });
+
+    res.status(200).send(question);
+    
+  } else {
+
+    fs.readFile(__dirname + './../data/questions.json', 'utf8', function (err, data) {
+
+      if (err) {
+        res.status(500).end();
+        return console.log(err);
+      }
+
+      try {
+        data = JSON.parse(data);
+      } catch (e) {
+        res.status(500).end();
+        return console.log(e);
+      }
+
+      var question = [];
+    
+      data.forEach(function (item, index) {
+        if (item.range == req.params.id) {
           question.push(data[index]);
         }
       });

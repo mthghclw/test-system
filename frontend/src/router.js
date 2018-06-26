@@ -1,16 +1,15 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Result from './views/Result.vue'
 import Question from './views/Question.vue'
 import Paper from './views/Paper.vue'
-import Type from './views/Type.vue'
 import Range from './views/Range.vue'
+import Type from './views/Type.vue'
+import Result from './views/Result.vue'
 
 Vue.use(Router)
 
 export default new Router({
   routes: [
-    
     {
       path: '/',
       name: 'question',
@@ -22,9 +21,9 @@ export default new Router({
       component: Paper
     },
     {
-      path: '/result',
-      name: 'result',
-      component: Result
+      path: '/range',
+      name: 'range',
+      component: Range
     },
     {
       path: '/type',
@@ -32,9 +31,9 @@ export default new Router({
       component: Type
     },
     {
-      path: '/range',
-      name: 'range',
-      component: Range
+      path: '/result',
+      name: 'result',
+      component: Result
     }
   ]
 })

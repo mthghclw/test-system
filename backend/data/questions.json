@@ -1,1 +1,71 @@
-[{"id":4532541680033,"type":1529917283849,"range":1529827098865,"title":"选择题","options":[{"flag":"A","content":"id","correct":false},{"flag":"B","content":"class","correct":false},{"flag":"C","content":"title","correct":false},{"flag":"D","content":"style","correct":true}],"solution":"style属性是用来定义行内样式的","date":"2018-06-25T09:54:16.223Z"},{"id":5512541680032,"type":1529917297057,"range":1529827098865,"title":"判断题","answer":true,"solution":"没有啥思路","date":"2018-06-25T10:13:27.454Z"},{"id":3512541680036,"type":1529917304481,"range":1529827204082,"title":"编程题","answer":"var a = \"hello vue\";\nvar b = [\"chen\",\"lian\"];","solution":"sdfhjmderfghm","date":"2018-06-25T09:58:56.183Z"},{"range":1529827217065,"type":1529917297057,"title":"判断题","answer":true,"solution":"暂无","date":"2018-06-25T10:13:06.157Z","id":1529841325635}]
+[{
+	"id": 4532541680033,
+	"type": 1529975584123,
+	"range": 1529827098865,
+	"title": "选择题",
+	"options": [{
+		"flag": "A",
+		"content": "id",
+		"correct": false
+	}, {
+		"flag": "B",
+		"content": "class",
+		"correct": false
+	}, {
+		"flag": "C",
+		"content": "title",
+		"correct": false
+	}, {
+		"flag": "D",
+		"content": "style",
+		"correct": false,
+		"crrect": true
+	}],
+	"solution": "style属性是用来定义行内样式的",
+	"date": "2018-06-26T08:47:09.705Z"
+}, {
+	"id": 5512541680032,
+	"type": 1529975597178,
+	"range": 1512546866327,
+	"title": "填空题",
+	"answer": [{
+		"num": 1,
+		"content": "第一个空的答案"
+	}, {
+		"num": 2,
+		"content": "第二个空的答案"
+	}, {
+		"num": 3,
+		"content": "第二个空的答案"
+	}],
+	"solution": "填空题解题思路",
+	"date": "2018-06-26T08:06:55.544Z"
+}, {
+	"id": 3512541680036,
+	"type": 1529975627993,
+	"range": 1529977365588,
+	"title": "编程题",
+	"answer": "var a = \"hello vue\";\nvar b = [\"chen\",\"lian\"];",
+	"solution": "编程题解题思路",
+	"date": "2018-06-26T07:55:01.762Z"
+}, {
+	"range": 1529977768225,
+	"type": 1529975608713,
+	"title": "判断题",
+	"answer": "false",
+	"solution": "暂无",
+	"date": "2018-06-26T08:10:39.087Z",
+	"id": 1529841325635
+}, {
+	"options": [{
+		"flag": "A",
+		"content": "1",
+		"correct": true
+	}],
+	"type": 1529975584123,
+	"title": "新建的选则",
+	"range": 1512546866327,
+	"solution": "法撒旦法师",
+	"date": "2018-06-26T10:10:27.922Z",
+	"id": 1530007827922
+}]
