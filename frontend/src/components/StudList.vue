@@ -1,0 +1,150 @@
+<template>
+  <div class="hello">
+    <table>
+        <tr>
+            <th>表头</th>
+            <th>表头</th>
+            <th>表头</th>
+            <th>表头</th>
+            <th>表头</th>
+            <th>表头</th>
+            <th>表头</th>
+            <th>表头</th>
+        </tr>
+        <tr>
+            <td>单元格</td>
+            <td>单元格</td>
+            <td>单元格</td>
+            <td>单元格</td>
+            <td>单元格</td>
+            <td>单元格</td>
+            <td>单元格</td>
+            <td>单元格</td>
+        </tr>
+        <tr>
+            <td>单元格</td>
+            <td>单元格</td>
+            <td>单元格</td>
+            <td>单元格</td>
+            <td>单元格</td>
+            <td>单元格</td>
+            <td>单元格</td>
+            <td>单元格</td>
+        </tr>
+        <tr>
+            <td>单元格</td>
+            <td>单元格</td>
+            <td>单元格</td>
+            <td>单元格</td>
+            <td>单元格</td>
+            <td>单元格</td>
+            <td>单元格</td>
+            <td>单元格</td>
+        </tr>
+        <tr>
+            <td>单元格</td>
+            <td>单元格</td>
+            <td>单元格</td>
+            <td>单元格</td>
+            <td>单元格</td>
+            <td>单元格</td>
+            <td>单元格</td>
+            <td>单元格</td>
+        </tr>
+        <tr>
+            <td>单元格</td>
+            <td>单元格</td>
+            <td>单元格</td>
+            <td>单元格</td>
+            <td>单元格</td>
+            <td>单元格</td>
+            <td>单元格</td>
+            <td>单元格</td>
+        </tr>
+        <tr>
+            <td>单元格</td>
+            <td>单元格</td>
+            <td>单元格</td>
+            <td>单元格</td>
+            <td>单元格</td>
+            <td>单元格</td>
+            <td>单元格</td>
+            <td>单元格</td>
+        </tr>
+        <tr>
+            <td>单元格</td>
+            <td>单元格</td>
+            <td>单元格</td>
+            <td>单元格</td>
+            <td>单元格</td>
+            <td>单元格</td>
+            <td>单元格</td>
+            <td>单元格</td>
+        </tr>
+        <tr>
+            <td>单元格</td>
+            <td>单元格</td>
+            <td>单元格</td>
+            <td>单元格</td>
+            <td>单元格</td>
+            <td>单元格</td>
+            <td>单元格</td>
+            <td>单元格</td>
+        </tr>
+        <tr>
+            <td>单元格</td>
+            <td>单元格</td>
+            <td>单元格</td>
+            <td>单元格</td>
+            <td>单元格</td>
+            <td>单元格</td>
+            <td>单元格</td>
+            <td>单元格</td>
+        </tr>
+        <tr>
+            <td>单元格</td>
+            <td>单元格</td>
+            <td>单元格</td>
+            <td>单元格</td>
+            <td>单元格</td>
+            <td>单元格</td>
+            <td>单元格</td>
+            <td>单元格</td>
+        </tr>
+        <tr>
+            <td>单元格</td>
+            <td>单元格</td>
+            <td>单元格</td>
+            <td>单元格</td>
+            <td>单元格</td>
+            <td>单元格</td>
+            <td>单元格</td>
+            <td>单元格</td>
+        </tr>
+        <tr>
+            <td>单元格</td>
+            <td>单元格</td>
+            <td>单元格</td>
+            <td>单元格</td>
+            <td>单元格</td>
+            <td>单元格</td>
+            <td>单元格</td>
+            <td>单元格</td>
+        </tr>
+    </table>
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'studlist',
+  props: {
+    msg: String
+  }
+}
+</script>
+
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style scoped lang="less">
+
+</style>
