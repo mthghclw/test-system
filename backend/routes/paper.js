@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var fs = require('fs');
 
+
 var paperCache = [];
 
 // 获取所有班级
@@ -26,6 +27,10 @@ router.get('/', function (req, res) {
         res.status(500).end();
         return console.log(e);
       }
+
+      // data.forEach(function(paper){
+
+      // });
 
       paperCache = data;
 

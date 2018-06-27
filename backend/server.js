@@ -11,6 +11,7 @@ var rangeRouter = require('./routes/range');
 var questionRouter = require('./routes/question');
 var paperRouter = require('./routes/paper');
 var resultRouter = require('./routes/result');
+var viewRouter = require('./routes/view');
 
 app.use(express.static(__dirname));
 app.use(bodyParser.json());
@@ -31,6 +32,7 @@ app.use('/ranges', rangeRouter);
 app.use('/questions', questionRouter);
 app.use('/papers', paperRouter);
 app.use('/results', resultRouter);
+app.use('/views', viewRouter);
 
 
 app.listen(3001, function () {

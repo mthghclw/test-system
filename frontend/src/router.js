@@ -2,6 +2,12 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Question from './views/Question.vue'
 import Paper from './views/Paper.vue'
+import PaperHome from '@/components/PaperHome.vue'
+import PaperView from '@/components/PaperView.vue'
+import PaperCreate from '@/components/PaperCreate.vue'
+import PaperEdit from '@/components/PaperEdit.vue'
+
+
 import Range from './views/Range.vue'
 import Type from './views/Type.vue'
 import Result from './views/Result.vue'
@@ -18,7 +24,25 @@ export default new Router({
     {
       path: '/paper',
       name: 'paper',
-      component: Paper
+      component: Paper,
+      children: [
+        {
+          path: '',
+          component: PaperHome
+        },
+        {
+          path: 'view',
+          component: PaperView
+        },
+        {
+          path: 'create',
+          component: PaperCreate
+        },
+        {
+          path: 'edit',
+          component: PaperEdit
+        }
+      ]
     },
     {
       path: '/range',

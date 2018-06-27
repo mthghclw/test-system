@@ -54,7 +54,7 @@
               <div class="col-xs-5">
                 <select id="type" class="form-control" v-model="editingQuestion.type" @change="change">
                   <option disabled>请选择题型</option>
-                  <option v-for="type in types" :key="type.id" :value="type.id">{{type.name}}</option>
+                  <option v-for="(type, index) in types" :key="index" :value="type.id">{{type.name}}</option>
                 </select>
               </div>
             </div>
@@ -66,21 +66,28 @@
               </div>
             </div>
             <!-- 选择题 -->
-            <div class="form-group" v-if="editingQuestion.type == 1529975584123" v-for="option in editingQuestion.options" :key="option.id">
+            <div class="form-group" v-if="editingQuestion.view == 'choose'" v-for="(option, index) in editingQuestion.options" :key="option.id">
               <label :for="option.flag" class="col-xs-1 control-label">选项：</label>
-              <div class="col-xs-8">
+              <div class="col-xs-7">
                 <input type="text" :id="option.flag" class="form-control" v-model="option.content">
               </div>
               <div class="col-xs-1 checkbox">
                 <label><input type="checkbox" v-model="option.correct">{{option.flag}}</label>
               </div>
+              <div class="col-xs-1">
+                <input type="text" class="form-control" v-model="option.flag">
+              </div>
               <div class="col-xs-2">
-                <button class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-plus"></span></button>&nbsp;
-                <button class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash"></span></button>
+                <button class="btn btn-primary btn-sm" @click="addOption(index)">
+                  <span class="glyphicon glyphicon-plus"></span>
+                </button>&nbsp;
+                <button class="btn btn-danger btn-sm" @click="removeOption(index)">
+                  <span class="glyphicon glyphicon-trash"></span>
+                </button>
               </div>
             </div>
             <!-- 填空题 -->
-            <div class="form-group" v-if="editingQuestion.type == 1529975597178" v-for="(answer, index) in editingQuestion.answer" :key="index">
+            <div class="form-group" v-if="editingQuestion.view == 'fill'" v-for="(answer, index) in editingQuestion.answer" :key="index">
               <label :for="'answer' + index" class="col-xs-1 control-label">选项：</label>
               <div class="col-xs-5">
                 <input type="text" :id="'answer' + index" class="form-control" v-model="answer.content">
@@ -90,12 +97,16 @@
                 <input type="text" :id="'num' + index" class="form-control" v-model.number="answer.num">
               </div>
               <div class="col-xs-2">
-                <button class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-plus"></span></button>&nbsp;
-                <button class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash"></span></button>
+                <button class="btn btn-primary btn-sm" @click="addBlank(index)">
+                  <span class="glyphicon glyphicon-plus"></span>
+                </button>&nbsp;
+                <button class="btn btn-danger btn-sm">
+                  <span class="glyphicon glyphicon-trash" @click="removeBlank(index)"></span>
+                </button>
               </div>
             </div>
             <!-- 判断题 -->
-            <div class="form-group" v-if="editingQuestion.type == 1529975608713">
+            <div class="form-group" v-if="editingQuestion.view == 'judgment'">
               <label for="answer" class="col-xs-1 control-label">答案：</label>
               <div class="col-xs-11">
                 <div class="radio-inline">
@@ -107,7 +118,7 @@
               </div>
             </div>
             <!-- 问答题、分析题、编程题 -->
-            <div class="form-group" v-if="editingQuestion.type == 1529975627993 || editingQuestion.type == 1529997427743 || editingQuestion.type == 1529999363075">
+            <div class="form-group" v-if="editingQuestion.view == 'other'">
               <label for="answer" class="col-xs-1 control-label">答案：</label>
               <div class="col-xs-11">
                 <textarea id="answer" rows="8" class="form-control" v-model="editingQuestion.answer"></textarea>
@@ -150,6 +161,7 @@ export default {
     }
   },
   created: function() {
+
     // 获取所有范围
     this.$http.get(this.url + '/ranges').then(function(res){
       this.ranges = res.body;
@@ -214,16 +226,66 @@ export default {
       })
     },
     change: function() {
-      console.log(this.editingQuestion.type)
-      if(this.editingQuestion.type == 1529975584123) {
-        this.editingQuestion = {options: [{flag: 'A', content:'', correct: false}], type: this.editingQuestion.type};
-      } else if(this.editingQuestion.type == 1529975597178) {
-        this.editingQuestion = {answer: [{num: 1, content: ''}], type: this.editingQuestion.type};
-      } else if(this.editingQuestion.type == 1529975608713) {
-        this.editingQuestion = {answer: false, type: this.editingQuestion.type};
-      } else {
-        this.editingQuestion = {answer: '', type: this.editingQuestion.type};
+
+      var vm = this;
+
+      this.types.forEach(function(type){
+
+        if(type.id == vm.editingQuestion.type){
+
+          vm.editingQuestion.view = type.view;
+        }
+      });
+      
+      if(this.editingQuestion.view == 'choose') {
+
+        this.editingQuestion = {
+          options: [{flag: '', content:'', correct: false}],
+          type: this.editingQuestion.type,
+          range: this.editingQuestion.range,
+          view: this.editingQuestion.view
+        };
+
+      } else if(this.editingQuestion.view == 'fill') {
+
+        this.editingQuestion = {
+          answer: [{num: 0, content: ''}],
+          type: this.editingQuestion.type,
+          range: this.editingQuestion.range,
+          view: this.editingQuestion.view
+        };
+
+      } else if(this.editingQuestion.view == 'judgment') {
+
+        this.editingQuestion = {
+          answer: false,
+          type: this.editingQuestion.type,
+          range: this.editingQuestion.range,
+          view: this.editingQuestion.view
+        };
+
+      } else if(this.editingQuestion.view == 'other') {
+
+        this.editingQuestion = {
+          answer: '',
+          type: this.editingQuestion.type,
+          range: this.editingQuestion.range,
+          view: this.editingQuestion.view
+        };
+
       }
+    },
+    addOption: function(index) {
+      this.editingQuestion.options.splice(index + 1, 0, {flag: '', content: '', correct: false});
+    },
+    removeOption: function(index) {
+      this.editingQuestion.options.splice(index, 1);
+    },
+    addBlank: function(index) {
+      this.editingQuestion.answer.splice(index + 1, 0, {num: index + 1, content: ''});
+    },
+    removeBlank: function(index) {
+      this.editingQuestion.answer.splice(index, 1);
     }
   }
 }

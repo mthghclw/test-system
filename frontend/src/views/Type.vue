@@ -1,45 +1,45 @@
 <template>
   <div class="type">
-  	<div class="container">
-  		<div class="row">
-  			<div class="col-xs-12">
-  				<!-- 考题类型开始 -->
-  				<div class="panel panel-default" v-show="!editing">
-  					<div class="panel-heading">
-  						<h3 class="panel-title">考题类型
-							<button class="btn btn-primary btn-xs pull-right" @click="create">新建</button>
-  						</h3>
-  					</div>
-  					<table class="table table-bordered">
-  						<thead>
-  							<tr>
-  								<th>编号</th>
-  								<th>类型</th>
-  								<th>日期</th>
-  								<th>操作</th>
-  							</tr>
-  						</thead>
-  						<tbody>
-  							<tr v-for="(type, index) in types" :key="index">
-  								<td>{{type.id}}</td>
-  								<td>{{type.name}}</td>
-  								<td>{{type.date}}</td>
-  								<td>
-  									<button class="btn btn-info btn-xs" @click="edit(index)">
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12">
+          <!-- 考题类型开始 -->
+          <div class="panel panel-default" v-show="!editing">
+            <div class="panel-heading">
+              <h3 class="panel-title">考题类型
+              <button class="btn btn-primary btn-xs pull-right" @click="create">新建</button>
+              </h3>
+            </div>
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th>编号</th>
+                  <th>类型</th>
+                  <th>日期</th>
+                  <th>操作</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="(type, index) in types" :key="index">
+                  <td>{{type.id}}</td>
+                  <td>{{type.name}}</td>
+                  <td>{{type.date}}</td>
+                  <td>
+                    <button class="btn btn-info btn-xs" @click="edit(index)">
                       <span class="glyphicon glyphicon-edit"></span>
                     </button>&nbsp;
-  									<button class="btn btn-danger btn-xs" @click="remove(index)">
+                    <button class="btn btn-danger btn-xs" @click="remove(index)">
                       <span class="glyphicon glyphicon-trash"></span>
                     </button>
-  								</td>
-  							</tr>
+                  </td>
+                </tr>
                 <tr v-if="!types.length">
                   <td colspan="4" class="text-center">暂无题型</td>
                 </tr>
-  						</tbody>
-  					</table>
-  				</div>
-  				<!-- 考题类型结束 -->
+              </tbody>
+            </table>
+          </div>
+          <!-- 考题类型结束 -->
           <!-- 编辑类型开始 -->
           <form class="panel panel-default form-horizontal" v-show="editing">
             <div class="panel-heading">
@@ -47,10 +47,22 @@
             </div>
             <div class="panel-body">
               <div class="form-group">
+
+
                 <label for="type" class="col-xs-1 control-label">类型：</label>
                 <div class="col-xs-5">
                   <input type="text" class="form-control" id="type" placeholder="请输入题型" v-model.trim="editingType.name">
                 </div>
+
+
+                <label for="view" class="col-xs-1 control-label">视图：</label>
+                <div class="col-xs-5">
+                  <select id="view" class="form-control" v-model="editingType.view">
+                    <option disabled>请选择视图</option>
+                    <option v-for="view in views" :key="view.id" :value="view.value">{{view.name}}</option>
+                  </select>
+                </div>
+
               </div>
             </div>
             <div class="panel-footer">
@@ -59,9 +71,9 @@
             </div>
           </form>
           <!-- 编辑类型结束 -->
-  			</div>
-  		</div>
-  	</div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -70,21 +82,32 @@
 export default {
   name: 'type',
   data: function() {
-  	return {
+    return {
       editing: false,
       editingType: {},
-  		types: [],
-  		url: 'http://localhost:3001',
-  		error: ''
-  	}
+      types: [],
+      views: [],
+      url: 'http://localhost:3001',
+      error: ''
+    }
   },
   created: function() {
-  	this.$http.get(this.url + '/types').then(function(res){
-  		this.types = res.body;
-  	},
-  	function(res){
-  		this.error = '获取考题类型失败';
-  	});
+
+    // 获取所有视图
+    this.$http.get(this.url + '/views').then(function(res){
+      this.views = res.body;
+    },
+    function(){
+      this.error = '获取视图失败';
+    });
+
+    // 获取所有类型
+    this.$http.get(this.url + '/types').then(function(res){
+      this.types = res.body;
+    },
+    function(){
+      this.error = '获取类型失败';
+    });
   },
   methods: {
     create: function() {
@@ -115,7 +138,7 @@ export default {
           // 关闭编辑页面
           this.editing = false;
 
-        },function(res){
+        },function(){
           this.error = '修改题型失败';
         });
 
@@ -140,7 +163,7 @@ export default {
     remove: function(index) {
 
       // 删除数据库中的题型
-      this.$http.delete(this.url + '/types/' + this.types[index].id).then(function(res){
+      this.$http.delete(this.url + '/types/' + this.types[index].id).then(function(){
 
         // 删除界面中的题型
         this.types.splice(index, 1);

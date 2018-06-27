@@ -1,5 +1,16 @@
 <template>
-  <div class="about">
-    <h1>考试试卷</h1>
+  <div class="paper">
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12">
+          <router-view/>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
+<script>
+  export default {
+    name: 'Paper'
+  }
+</script>
