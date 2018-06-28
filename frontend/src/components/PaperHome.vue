@@ -23,13 +23,13 @@
           <td>{{paper.questions.length}}</td>
           <td>{{paper.date}}</td>
           <td>
-            <router-link class="btn btn-success btn-xs" to="/paper/view">
+            <router-link class="btn btn-success btn-xs" :to="{name: 'paperview', params: {paperid: paper.id}}">
               <span class="glyphicon glyphicon-eye-open"></span>
             </router-link>&nbsp;
-            <router-link class="btn btn-info btn-xs" to="/paper/edit">
+            <router-link class="btn btn-info btn-xs" :to="'/paper/edit/' + paper.id">
               <span class="glyphicon glyphicon-edit"></span>
             </router-link>&nbsp;
-            <button class="btn btn-danger btn-xs">
+            <button class="btn btn-danger btn-xs" @click="remove(index)">
               <span class="glyphicon glyphicon-trash"></span>
             </button>
           </td>
@@ -56,6 +56,19 @@ export default {
     },function(){
       this.error = '获取试卷失败';
     });
+  },
+  methods: {
+    remove: function(index) {
+
+      // 删除试卷
+      this.$http.delete(this.url + '/papers/' + this.papers[index].id).then(function(){
+        
+        // 更新界面
+        this.papers.splice(index, 1);
+      },function(){
+        this.error = '删除试卷失败';
+      });
+    }
   }
 }
 </script>

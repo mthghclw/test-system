@@ -40,7 +40,7 @@ router.get('/', function (req, res) {
   }
 })
 
-// 获取指定ID的班级
+// 获取指定ID的试卷
 router.get('/:id', function (req, res) {
 
   if(paperCache.length){
@@ -53,7 +53,37 @@ router.get('/:id', function (req, res) {
       }
     });
 
-    res.status(200).send(paper);
+    fs.readFile(__dirname + './../data/questions.json', 'utf8', function (err, questions) {
+
+      if (err) {
+        res.status(500).end();
+        return console.log(err);
+      }
+
+      try {
+        questions = JSON.parse(questions);
+      } catch (e) {
+        res.status(500).end();
+        return console.log(e);
+      }
+
+      if(paper.length) {
+        
+        paper[0].questions.forEach(function(questionId, index){
+  
+          questions.forEach(function(question){
+  
+            if(questionId == question.id){
+              paper[0].questions[index] = question
+            }
+          });
+        });
+
+      }
+
+      res.status(200).send(paper);
+    });
+
     
   } else {
 
@@ -71,6 +101,8 @@ router.get('/:id', function (req, res) {
         return console.log(e);
       }
 
+      paperCache = data;
+
       var paper = [];
     
       data.forEach(function (item, index) {
@@ -79,13 +111,39 @@ router.get('/:id', function (req, res) {
         }
       });
 
-      paperCache = data;
+      fs.readFile(__dirname + './../data/questions.json', 'utf8', function (err, questions) {
 
-      res.status(200).send(paper);
+        if (err) {
+          res.status(500).end();
+          return console.log(err);
+        }
+  
+        try {
+          questions = JSON.parse(questions);
+        } catch (e) {
+          res.status(500).end();
+          return console.log(e);
+        }
 
+
+        if(paper.length) {
+        
+          paper[0].questions.forEach(function(questionId, index){
+
+            questions.forEach(function(question){
+  
+              if(questionId == question.id){
+                paper[0].questions[index] = question
+              }
+            });
+          });
+  
+        }
+
+        res.status(200).send(paper);
+      });
     });
   }
-
 })
 
 // 更新一条数据

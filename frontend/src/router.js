@@ -31,16 +31,19 @@ export default new Router({
           component: PaperHome
         },
         {
-          path: 'view',
-          component: PaperView
+          path: 'view/:paperid',
+          name: 'paperview',
+          component: PaperView,
+          props: true
         },
         {
           path: 'create',
           component: PaperCreate
         },
         {
-          path: 'edit',
-          component: PaperEdit
+          path: 'edit/:paperid',
+          component: PaperEdit,
+          props: true
         }
       ]
     },

@@ -84,7 +84,7 @@ router.get('/:id', function (req, res) {
 })
 
 // 获取指定类型的试题
-router.get('/type/:id', function (req, res) {
+router.get('/types/:id', function (req, res) {
 
   if(questionCache.length){
 
@@ -132,7 +132,7 @@ router.get('/type/:id', function (req, res) {
 })
 
 // 获取指定范围的试题
-router.get('/range/:id', function (req, res) {
+router.get('/ranges/:id', function (req, res) {
 
   if(questionCache.length){
 
@@ -166,6 +166,54 @@ router.get('/range/:id', function (req, res) {
     
       data.forEach(function (item, index) {
         if (item.range == req.params.id) {
+          question.push(data[index]);
+        }
+      });
+
+      questionCache = data;
+
+      res.status(200).send(question);
+
+    });
+  }
+
+})
+
+// 获取指定范围的试题
+router.get('/ranges/:rangeid/types/:typeid', function (req, res) {
+
+  if(questionCache.length){
+
+    var question = [];
+    
+    questionCache.forEach(function (item, index) {
+      if (item.range == req.params.rangeid && item.type == req.params.typeid) {
+        question.push(questionCache[index]);
+      }
+    });
+
+    res.status(200).send(question);
+    
+  } else {
+
+    fs.readFile(__dirname + './../data/questions.json', 'utf8', function (err, data) {
+
+      if (err) {
+        res.status(500).end();
+        return console.log(err);
+      }
+
+      try {
+        data = JSON.parse(data);
+      } catch (e) {
+        res.status(500).end();
+        return console.log(e);
+      }
+
+      var question = [];
+    
+      data.forEach(function (item, index) {
+        if (item.range == req.params.rangeid && item.type == req.params.typeid) {
           question.push(data[index]);
         }
       });
