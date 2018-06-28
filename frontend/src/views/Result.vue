@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-  	考试结果
+   考试结果
   </div>
 </template>
 

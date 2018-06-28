@@ -118,7 +118,7 @@
               </div>
             </div>
             <!-- 问答题、分析题、编程题 -->
-            <div class="form-group" v-if="editingQuestion.view == 'other'">
+            <div class="form-group" v-if="editingQuestion.view == 'question' || editingQuestion.view == 'analysis' || editingQuestion.view == 'program'">
               <label for="answer" class="col-xs-1 control-label">答案：</label>
               <div class="col-xs-11">
                 <textarea id="answer" rows="8" class="form-control" v-model="editingQuestion.answer"></textarea>
@@ -264,7 +264,25 @@ export default {
           view: this.editingQuestion.view
         };
 
-      } else if(this.editingQuestion.view == 'other') {
+      } else if(this.editingQuestion.view == 'question') {
+
+        this.editingQuestion = {
+          answer: '',
+          type: this.editingQuestion.type,
+          range: this.editingQuestion.range,
+          view: this.editingQuestion.view
+        };
+
+      } else if(this.editingQuestion.view == 'paragram') {
+
+        this.editingQuestion = {
+          answer: '',
+          type: this.editingQuestion.type,
+          range: this.editingQuestion.range,
+          view: this.editingQuestion.view
+        };
+
+      } else if(this.editingQuestion.view == 'analysis') {
 
         this.editingQuestion = {
           answer: '',
