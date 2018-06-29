@@ -23,7 +23,7 @@ export default new Router({
     },
     {
       path: '/paper',
-      name: 'paper',
+      // name: 'paper',
       component: Paper,
       children: [
         {

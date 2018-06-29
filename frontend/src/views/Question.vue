@@ -273,7 +273,7 @@ export default {
           view: this.editingQuestion.view
         };
 
-      } else if(this.editingQuestion.view == 'paragram') {
+      } else if(this.editingQuestion.view == 'program') {
 
         this.editingQuestion = {
           answer: '',
