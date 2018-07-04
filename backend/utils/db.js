@@ -7,13 +7,13 @@ const baseurl = __dirname + './../data/'
 const DASEPATH = __dirname + './../data/dase.json'
 
 var dase = {
-	papers: [],
-	questions: []
+    papers: [],
+    questions: []
 };
 
 function readFile(filePath, fn){
 
-	fs.readFile(filePath, 'utf8', function (err, data) {
+    fs.readFile(filePath, 'utf8', function (err, data) {
 
         if (err) {
           return console.log(err);
@@ -25,28 +25,23 @@ function readFile(filePath, fn){
           return console.log(e);
         }
 
-	    fn(data);
-
+        fn(data);
     });
 
 };
 
 function writeFile(filePath, data, fn){
 
-	fs.writeFile(filePath, JSON.stringify(data), function (err) {
+    fs.writeFile(filePath, JSON.stringify(data), function (err) {
 
-      	if (err) {
-        	return console.log(err);
-      	}
+        if (err) {
+            return console.log(err);
+        }
 
-     	fn(data);
+        fn(data);
     });
 };
 
-
-// readFile(DASEPATH, function(data){
-// 	dase = data;
-// });
 
 function Jsondase () {
 
@@ -54,96 +49,88 @@ function Jsondase () {
 
 Jsondase.prototype.add = function (entity) {
 
-	if (Array.isArray(entity) && entity.length) {
+    if (Array.isArray(entity) && entity.length) {
 
-	} else {
-		throw new Error();
-	}
+    } else {
+        throw new Error();
+    }
 
 };
 
 Jsondase.prototype.delete = function (entity) {
 
-	if (Array.isArray(entity) && entity.length) {
+    if (Array.isArray(entity) && entity.length) {
 
-	} else {
-		throw new Error();
-	}
+    } else {
+        throw new Error();
+    }
 
 };
 
 Jsondase.prototype.update = function (entity) {
 
-	if (Array.isArray(entity) && entity.length) {
+    if (Array.isArray(entity) && entity.length) {
 
-	} else {
-		throw new Error();
-	}
+    } else {
+        throw new Error();
+    }
 
 };
 
 // 查询全部
 Jsondase.prototype.findAll = function (table, fn) {
 
-	if(!table) throw new Error('表名不能为空！');
+    if(!table) throw new Error('表名不能为空！');
 
-	if(dase[table].length) {
+    if(dase[table].length) {
 
-		fn(dase[table]);
+        fn(dase[table]);
 
-	} else {
-		readFile(baseurl + table + '.json', function(data){
+    } else {
+        readFile(baseurl + table + '.json', function(data){
 
-			dase[table] = data;
+            dase[table] = data;
 
-			fn(dase[table]);
-		});
-	}
+            fn(dase[table]);
+        });
+    }
 };
 
 Jsondase.prototype.findOne = function (table, id, fn) {
 
-	if(!table) throw new Error('表名不能为空！');
+    var result = [];
 
-	console.log(dase)
-	console.log(dase[table])
+    if(dase[table].length) {
 
-	
-	var result = [];
+        console.log('缓存')
 
-	if(dase[table].length) {
+        dase[table].forEach(function(entity,index){
 
-		console.log('缓存')
+            if(entity.id == id){
+                result.push(dase[table][index]);
+            }
+        });
 
-		dase[table].forEach(function(entity,index){
+        fn(result);
 
-		    if(entity.id == id){
-		    	result.push(dase[table][index]);
-		    }
+    } else {
+        readFile(baseurl + table + '.json', function(data){
 
-		});
+            dase[table] = data;
 
-		fn(result);
+            console.log('重新读取')
 
-	} else {
-		readFile(baseurl + table + '.json', function(data){
+            dase[table].forEach(function(entity, index){
 
-			dase[table] = data;
+                if(entity.id == id){
+                    result.push(dase[table][index]);
+                }
 
-			console.log('重新读取')
-			
+            });
 
-			dase[table].forEach(function(entity, index){
-
-			    if(entity.id == id){
-			    	result.push(dase[table][index]);
-			    }
-
-			});
-
-			fn(result);
-		});
-	}
+            fn(result);
+        });
+    }
 };
 
 module.exports = new Jsondase();

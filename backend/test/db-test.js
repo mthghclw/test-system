@@ -81,7 +81,8 @@ function find (table, condition, fn) {
 
 find('paper',null,function(data){
 
-console.log(data)
+	console.log(data)
+	
 })
 
 
